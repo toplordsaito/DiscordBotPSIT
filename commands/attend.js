@@ -25,9 +25,9 @@ module.exports = {
             if (!room) continue
             for (i = 0; i < room.member.length; i++) {
                 if (channel.members.some(m => m.nickname.split(" ")[0] === room.member[i])) {
-                    come.push(room.member[i])
+                    await come.push(room.member[i])
                 } else {
-                    upset.push(room.member[i])
+                    await upset.push(room.member[i])
                 }
             }
         }
