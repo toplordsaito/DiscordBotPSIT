@@ -9,7 +9,9 @@ module.exports = {
             return;
         const channels = msg.guild.channels.cache.filter(c => c.type === 'voice');
         for (const [channelID, channel] of channels) {
-            let room = pair.find(p => p.room == channel.name)
+            let room = pair.find(p => {
+                return `#${p.room < 10 ? '0' + p.room : p.room} - Lab` == channel.name
+            })
             if (!room) continue
             for (i = 0; i < room.member.length; i++) {
                 if (channel.members.some(m => m.nickname.split(" ")[0] === room.member[i])) {
