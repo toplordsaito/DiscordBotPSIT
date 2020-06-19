@@ -1,0 +1,19 @@
+{
+  "name": "discord",
+  "version": "1.0.0",
+  "description": "Test Discord waruw",
+  "main": "index.js",
+  "dependencies": {
+    "@discordjs/opus": "^0.3.2",
+    "discord.js": "^12.2.0",
+    "dotenv": "^8.2.0",
+    "fs": "0.0.1-security"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "nodemon discord.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "waruw",
+  "license": "ISC"
+}

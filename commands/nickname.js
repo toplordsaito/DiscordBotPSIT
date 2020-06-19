@@ -1,0 +1,66 @@
+const fs = require('fs');
+const { MessageEmbed } = require('discord.js');
+const { argv } = require('process');
+module.exports = {
+    name: 'id',
+    description: 'Ping!',
+    execute(msg, args) {
+        let addSec = async (id, name) => {
+            console.log(args.split())
+            let rawdata = fs.readFileSync('student.json');
+            let student = JSON.parse(rawdata);
+            student = student.find(st => st.id == id && st.name === name)
+            if (!student) return msg.reply('ไม่พบข้อมูลนักศึกษา กรุณาติดต่อ TA')
+            let sec = student.sec
+            console.log(sec)
+            const role = msg.guild.roles.cache.find(role => role.name === `sec${sec}`)
+            if (role == null) {
+                msg.channel.send("Error Role DoesNotExist");
+                return;
+            }
+            if (msg.member == null) {
+                msg.channel.send("```diff\n- Error occured, sender of that msg was null. Discord claims you do not exist. Debug info: " + message.member + " " + message.author + "```");
+                return;
+            }
+            try {
+                await msg.member.roles.add(role)
+                await msg.member.setNickname(args)
+                var embed = new MessageEmbed()
+                    .setImage(msg.author.displayAvatarURL())
+                    .setColor('RANDOM')
+                    .setAuthor('registration completed', msg.channel.guild.iconURL)
+                    .addField('รหัศนักศึกษา : ', student.id)
+                    .addField('ชื่อ : ', student.name)
+                    .addField('sec : ', student.sec)
+                    .setTimestamp()
+                msg.reply(embed).catch()
+            } catch (error) {
+                console.log(error)
+                msg.reply(error.message)
+            }
+
+            msg.member.roles.add(role)
+                .then(msg.member.setNickname(args))
+                .catch(err => msg.reply(err));
+
+        }
+
+        try {
+            let re = new RegExp('^61070\\d\\d\\d')
+            let argument = args.split(" ")
+            let stdId = argument[0]
+            let stdName = argument[1]
+            if (msg.member.nickname && re.test(msg.member.nickname.split(' ')[0])) return msg.reply("คุณเปลี่ยนชื่อเล่นไปแล้ว กรุณาติดต่อ TA")
+            if (stdId && stdName && re.test(stdId)) {
+                addSec(stdId, stdName)
+            } else {
+                msg.reply("ผิดพลาด กรุณากรอก รหัศนักศึกษา ชื่อจริงไม่ต้องมีนามสกุุล เช่น 63070002 สมชาย")
+            }
+        } catch (error) {
+            console.log(error)
+            msg.reply("ผิดพลาด กรุณาติดต่อ TA")
+        }
+
+    },
+};
+
