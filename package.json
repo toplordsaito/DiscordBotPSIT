@@ -2,7 +2,7 @@
   "name": "discord",
   "version": "1.0.0",
   "description": "Test Discord waruw",
-  "main": "index.js",
+  "main": "discord.js",
   "dependencies": {
     "@discordjs/opus": "^0.3.2",
     "discord.js": "^12.2.0",
@@ -11,7 +11,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "start": "nodemon discord.js",
+    "start": "node discord.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "waruw",
