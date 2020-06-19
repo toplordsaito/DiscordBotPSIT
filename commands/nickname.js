@@ -6,13 +6,16 @@ module.exports = {
     description: 'Ping!',
     execute(msg, args) {
         let addSec = async (id, name) => {
-            console.log(args.split())
+
             let rawdata = fs.readFileSync('student.json');
             let student = JSON.parse(rawdata);
             student = student.find(st => st.id == id && st.name === name)
-            if (!student) return msg.reply('ไม่พบข้อมูลนักศึกษา กรุณาติดต่อ TA')
+
+            if (!student) {
+                msg.reply('ไม่พบข้อมูลนักศึกษา กรุณาติดต่อ TA')
+                return
+            }
             let sec = student.sec
-            console.log(sec)
             const role = msg.guild.roles.cache.find(role => role.name === `sec${sec}`)
             if (role == null) {
                 msg.channel.send("Error Role DoesNotExist");
@@ -50,11 +53,14 @@ module.exports = {
             let argument = args.split(" ")
             let stdId = argument[0]
             let stdName = argument[1]
-            if (msg.member.nickname && re.test(msg.member.nickname.split(' ')[0])) return msg.reply("คุณเปลี่ยนชื่อเล่นไปแล้ว กรุณาติดต่อ TA")
+            if (msg.member.nickname && re.test(msg.member.nickname.split(' ')[0])) {
+                msg.reply("คุณเปลี่ยนชื่อเล่นไปแล้ว กรุณาติดต่อ TA")
+                return
+            }
             if (stdId && stdName && re.test(stdId)) {
                 addSec(stdId, stdName)
             } else {
-                msg.reply("ผิดพลาด กรุณากรอก รหัศนักศึกษา ชื่อจริงไม่ต้องมีนามสกุุล เช่น 63070002 สมชาย")
+                msg.reply("ผิดพลาด กรุณาพิมพ์  !id รหัศนักศึกษา ชื่อจริงไม่ต้องมีนามสกุุล เช่น !id 63070002 สมชาย")
             }
         } catch (error) {
             console.log(error)
