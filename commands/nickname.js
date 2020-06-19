@@ -15,6 +15,9 @@ module.exports = {
                 return
             }
             let sec = student.sec
+            msg.guild.roles.cache.forEach(element => {
+                console.log(element)
+            });
             const role = msg.guild.roles.cache.find(role => role.name === `sec${sec}`)
             if (role == null) {
                 msg.channel.send("Error Role DoesNotExist");
@@ -25,7 +28,7 @@ module.exports = {
                 return;
             }
             try {
-                await msg.member.roles.add(role)
+                await msg.member.roles.set(['723149958441598977', role.id])
                 await msg.member.setNickname(args)
                 var embed = new MessageEmbed()
                     .setImage(msg.author.displayAvatarURL())
