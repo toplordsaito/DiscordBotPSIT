@@ -1,6 +1,5 @@
 const fs = require('fs');
 const { MessageEmbed } = require('discord.js');
-const { argv } = require('process');
 module.exports = {
     name: 'id',
     description: 'Ping!',
@@ -42,10 +41,6 @@ module.exports = {
                 msg.reply(error.message)
             }
 
-            msg.member.roles.add(role)
-                .then(msg.member.setNickname(args))
-                .catch(err => msg.reply(err));
-
         }
 
         try {
@@ -63,7 +58,7 @@ module.exports = {
                 msg.reply("ผิดพลาด กรุณาพิมพ์  !id รหัศนักศึกษา ชื่อจริงไม่ต้องมีนามสกุุล เช่น !id 63070002 สมชาย")
             }
         } catch (error) {
-            console.log(error)
+            console.log(error.message)
             msg.reply("ผิดพลาด กรุณาติดต่อ TA")
         }
 
