@@ -13,18 +13,11 @@ for (const file of commandFiles) {
     client.commands.set(command.name, command);
 }
 client.login(TOKEN);
-const guild = new Discord.Guild(client);
 
 client.once('ready', () => {
     console.info(`Logged in as ${client.user.tag}!`);
 });
 
-const createRole = (roleName) => {
-    if (client.message.server.roles != roleName) {
-
-    }
-
-}
 client.on('message', msg => {
     if (!msg.content.startsWith(PREFIX)) return
     if (msg.channel.type === "dm") return;
